@@ -6,6 +6,15 @@ import {
 
 export function getHomeMultidata() {
   return request4({
-    url: '/project/superior?size=10'
+    url: '/project/superior?size=4'
+  })
+}
+
+export function getHomeGoods(type, size) {
+  return request4({
+    url: '/project/'+type,
+    params: {
+      size
+    }
   })
 }
