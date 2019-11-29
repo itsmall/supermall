@@ -1,10 +1,11 @@
 <template>
   <div class="goods-item" @click="itemClick">
-    <img 
+    <img
+      @load="imgLoad"
       src="https://ss0.bdstatic.com/6Ox1bjeh1BF3odCf/it/u=1254509578,513750946&fm=74&app=80&f=JPEG&size=f121,90?sec=1880279984&t=bf98a2d5a23cdd366d6a48e7fba9c05e"
     />
     <!-- v-lazy="showImage" :key="showImage"  -->
-  
+
     <div class="goods-info">
       <p>{{goodsItem.name}}</p>
       <span class="price">{{goodsItem.userId}}</span>
@@ -44,11 +45,14 @@ export default {
   },
   methods: {
     itemClick() {
-      const iid = this.goodsItem.iid;
-      this.$route.push({ path: "/detail", query: { iid } });
+      this.$router.push("/detail/" +this.goodsItem.id);
+      // this.$router.push({
+      //   path: "/detail",
+      //   query: {}
+      // });
     },
     imgLoad() {
-      this.$bus.$emit("imLoad");
+      this.$bus.$emit("imgLoad");
     }
   }
 };
