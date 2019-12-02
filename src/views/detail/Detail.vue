@@ -154,11 +154,11 @@ export default {
   left: 0;
   right: 0;
 }
-.detail-nav-bar {
+/* .detail-nav-bar {
   position: relative;
   z-index: 9;
   background-color: #fff;
-}
+} */
 /* .goods-list {
   padding-bottom: 120px;
 } */
