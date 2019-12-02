@@ -9,7 +9,7 @@
           v-for="(item,index) in titles"
           :key="index"
           class="title-item"
-          @click="titleClick(index)" 
+          @click="titleClick(index)"
           :class="{active:index==currentIndex}"
         >{{item}}</div>
       </div>
@@ -52,7 +52,7 @@ export default {
 .active {
   color: var(--color-high-text);
 }
-.back {
-  margin-top: 5px;
+.back img {
+  margin-top: 11px;
 }
 </style>

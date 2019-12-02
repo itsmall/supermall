@@ -12,7 +12,7 @@
     <scroll
       class="content"
       ref="scroll"
-      :probeType="2"
+      :probeType="3"
       :pullUpLoad="true"
       @scroll="centerScroll"
       @pullingUp="loadMore"
@@ -83,11 +83,12 @@ export default {
   },
   activated() {
     this.$refs.scroll.scrollTo(0, this.saveY, 0);
-
+    // console.log("activated", this.saveY);
     this.$refs.scroll.refresh();
   },
   deactivated() {
     this.saveY = this.$refs.scroll.getScrollY();
+    // console.log("deactivated", this.saveY);
   },
   created() {
     //1.请求多个数据
@@ -187,6 +188,7 @@ export default {
   height: 100vh;
   position: relative;
 }
+
 .home-nav {
   background-color: var(--color-tint);
   color: #fff;
