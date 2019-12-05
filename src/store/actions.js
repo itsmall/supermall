@@ -29,17 +29,24 @@ export default {
             state.cartList.push(payload);
           } */
 
-    //查找数组中是否有该商品
-    let oldProduct = context.state.cartList.find(item => item.id === payload.id)
+    return new Promise((resolve, reject) => {
 
-    //判断oldProduct是否存在
-    if (oldProduct) {
-      context.commit(ADD_COUNTER, oldProduct)
-      // oldProduct.count += 1;
-    } else {
-      context.commit(ADD_TO_CART, payload)
-      // context.state.cartList.push(payload);
-    }
 
+      //查找数组中是否有该商品
+      let oldProduct = context.state.cartList.find(item => item.id === payload.id)
+
+      //判断oldProduct是否存在
+      if (oldProduct) {
+        context.commit(ADD_COUNTER, oldProduct)
+        resolve("当前的数量加1")
+        // oldProduct.count += 1;
+      } else {
+        context.commit(ADD_TO_CART, payload)
+        resolve("添加了新的商品")
+        // context.state.cartList.push(payload);
+      }
+
+    })
   }
+
 }

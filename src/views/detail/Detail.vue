@@ -9,7 +9,7 @@
         <ul>
           <li v-for="item in $store.state.cartList">{{item}}</li>
         </ul>
-      </div> -->
+      </div>-->
       <detail-swiper :topImages="topImages" />
       <detail-base-info :goods="goods" />
       <detail-shop-info :shop="shop" />
@@ -22,13 +22,15 @@
         <goods-list ref="recommend" :goods="recommends" />
       </div>
     </scroll>
-    <back-top @click.native="backClick" v-show="isShowBackTop" />
     <detail-bottom-bar @addCart="addToCart" />
+    <back-top @click.native="backClick" v-show="isShowBackTop" />
+    <!-- <toast :message="message" :show="show" /> -->
   </div>
 </template>
 
 <script>
 // 公共组件o
+// import Toast from "components/common/toast/Toast";
 import Scroll from "components/common/scroll/Scroll";
 import GoodsList from "components/content/goods/GoodsList";
 
@@ -43,10 +45,12 @@ import DetailCommentInfo from "./childComps/DetailCommentInfo";
 
 import { getDetail, Goods, Shop, GoodsParam, getReta } from "network/detail.js";
 import { itemImgListenerMixin, backTopMixin } from "common/mixin.js";
+import { mapActions } from "vuex";
 
 export default {
   name: "Detail",
   components: {
+    // Toast,
     Scroll,
     GoodsList,
 
@@ -80,6 +84,8 @@ export default {
       themeTopYs: [],
       getThemeTopY: {},
       currentIndex: 0
+      // show: false,
+      // message: ""
     };
   },
   created() {
@@ -163,6 +169,7 @@ export default {
     // console.log(this.$refs.recommend.$el.offsetTop);
   },
   methods: {
+    ...mapActions(["addCart"]),
     titleClick(index) {
       // console.log(index);
       this.$refs.scroll.scrollTo(0, -this.themeTopYs[index], 200);
@@ -217,10 +224,26 @@ export default {
       product.id = this.id;
       product.count = 1;
       product.checked = true;
-      console.log(product);
-      // this.$store.commit("addCart", product);
-      this.$store.dispatch("addCart", product);
-      console.log("加入购物车成功！！");
+
+      /* //方法一：
+      //提交mutations
+      this.$store.commit("addCart", product);
+      //提交到actions
+      this.$store.dispatch("addCart", product).then(res => {
+        console.log(res);
+      }); */
+
+      //方法二：vuex 映射到mapActions
+      this.addCart(product).then(res => {
+        /*  this.message = res;
+        this.show = true;
+        setTimeout(() => {
+          this.show = false;
+          this.message = "";
+        }, 1500); */
+        this.$toast.show(res, 1500);
+        // console.log(res);
+      });
     },
     moreClick() {
       console.log("更多评论；");

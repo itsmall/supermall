@@ -22,7 +22,7 @@ export default {
     border: 2px solid #aaa;
 }
 .check{
-    border-color:var(--color-tint);;
-    background-color:var(--color-tint);;
+    border-color:var(--color-tint);
+    background-color:var(--color-tint);
 }
 </style>
