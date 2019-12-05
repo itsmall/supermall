@@ -14,15 +14,25 @@ export function getDetail(id) {
     // }
   })
 }
+
+export function getReta(type, size) {
+  return request4({
+    url: '/project/' + type,
+    params: {
+      size
+    }
+  })
+}
+
 //es6  
 export class Goods {
   constructor(res) {
     this.title = res.name;
-    this.desc = "新款上市";
+    this.desc = res.introduce;
     this.discount = "活动价";
-    this.newPrice = "￥" + res.beforeMoney;
-    this.oldPrice = "￥" + res.nowMoney;
-    this.realPrice = "￥" + res.beforeMoney;
+    this.newPrice = res.beforeMoney;
+    this.oldPrice = res.nowMoney;
+    this.realPrice = res.beforeMoney;
     this.columns = ['销量' + res.profit, '收藏' + res.proportion + '人'];
     this.services = [{
         name: '退货补运费',
@@ -46,7 +56,7 @@ export class Goods {
 }
 export class Shop {
   constructor(res) {
-    this.logo = '//img.alicdn.com/imgextra//27/c6/TB14zFfMpXXXXb0XXXXwu0bFXXX.png_100x100q90_.webp';
+    this.logo = 'https://img12.360buyimg.com/cms/jfs/t18538/18/2481691235/8072/92a70638/5af4f19dN46104fc8.jpg!q70.dpg.webp';
     this.name = res.auditingName;
     this.fans = 17145;
     this.sells = 57876;
@@ -71,10 +81,11 @@ export class GoodsParam {
   constructor() {
     // 注: images可能没有值(某些商品有值, 某些没有值)
     // this.image = info.images ? info.images[0] : '';
+    this.image = "//img30.360buyimg.com/sku/jfs/t1/93676/39/246/120296/5daa6f9cE18820ae0/ddf5b94c8cbd57a7.jpg";
     // this.infos = info.set;
     this.infos = [{
-      key: '图案',
-      value: "复古,民族,字母,文字,数值"
+      key: '搭配',
+      value: "上衣+裤子"
     }, {
       key: '厂名',
       value: "复古民族chang"
@@ -82,16 +93,29 @@ export class GoodsParam {
       key: '颜色',
       value: "黑白"
     }, {
-      key: '尺寸',
-      value: "S,M,L,XL,XXL"
+      key: '厚薄',
+      value: "普通"
+    }, {
+      key: '领型',
+      value: "圆领"
+    }, {
+      key: '面料',
+      value: " 涤纶 棉"
+    }, {
+      key: '适用年龄',
+      value: "25-29周岁"
     }]
     // this.sizes = rule.tables;
     this.sizes = [
       [
-        [1, 2, 3, 4, 5, 6],
-        [1, 2, 3, 4, 5, 6],
-        [1, 2, 3, 4, 5, 6],
-        [1, 2, 3, 4, 5, 6],
+
+        ['尺码', 'S', 'M', 'L', 'XL'],
+        ['胸围', '100', '104', '108', '110'],
+        ['肩宽', '36', '37', '38', '39'],
+        ['裤长', '96', '97', '98', '99'],
+        ['衣长', '54', '55', '56', '57'],
+        ['袖长', '61', '62', '63', '64'],
+
       ],
 
     ]

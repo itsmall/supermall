@@ -1,9 +1,6 @@
 <template>
   <div class="goods-item" @click="itemClick">
-    <img
-      @load="imgLoad"
-      src="https://ss0.bdstatic.com/6Ox1bjeh1BF3odCf/it/u=1254509578,513750946&fm=74&app=80&f=JPEG&size=f121,90?sec=1880279984&t=bf98a2d5a23cdd366d6a48e7fba9c05e"
-    />
+    <img @load="imgLoad" :src="showImage" />
     <!-- v-lazy="showImage" :key="showImage"  -->
 
     <div class="goods-info">
@@ -20,11 +17,11 @@ export default {
   data() {
     return {
       img:
-        "https://ss0.bdstatic.com/6Ox1bjeh1BF3odCf/it/u=1254509578,513750946&fm=74&app=80&f=JPEG&size=f121,90?sec=1880279984&t=bf98a2d5a23cdd366d6a48e7fba9c05e",
-      image:
-        "https://paimgcdn.baidu.com/DADFF0C3E6E323D6?src=http%3A%2F%2Fms.bdimg.com%2Fdsp-image%2F1460249173.jpg&rz=urar_2_968_600&v=0",
-      show:
-        "https://ss0.baidu.com/73x1bjeh1BF3odCf/it/u=1603718503,2397388113&fm=85&s=309865322BF9739811974FD70300E0A6"
+        "https://ss0.bdstatic.com/6Ox1bjeh1BF3odCf/it/u=1254509578,513750946&fm=74&app=80&f=JPEG&size=f121,90?sec=1880279984&t=bf98a2d5a23cdd366d6a48e7fba9c05e"
+      // image:
+      //   "https://paimgcdn.baidu.com/DADFF0C3E6E323D6?src=http%3A%2F%2Fms.bdimg.com%2Fdsp-image%2F1460249173.jpg&rz=urar_2_968_600&v=0",
+      // show:
+      //   "https://ss0.baidu.com/73x1bjeh1BF3odCf/it/u=1603718503,2397388113&fm=85&s=309865322BF9739811974FD70300E0A6"
     };
   },
   props: {
@@ -37,15 +34,14 @@ export default {
   },
   computed: {
     showImage() {
-      return (
-        //this.goodsItem.img || this.goodsItem.image || this.goodsItem.show.img
-        this.img || this.image || this.show
-      );
+      return this.img;
+
+      // return this.img || this.image || this.show;
     }
   },
   methods: {
     itemClick() {
-      this.$router.push("/detail/" +this.goodsItem.id);
+      this.$router.push("/detail/" + this.goodsItem.id);
       // this.$router.push({
       //   path: "/detail",
       //   query: {}
@@ -53,6 +49,9 @@ export default {
     },
     imgLoad() {
       this.$bus.$emit("imgLoad");
+      /* if (this.$route.path.indexOf("/home")) this.$bus.$emit("imgLoad");
+      else if (this.$route.path.indexOf("/detail"))
+        this.$bus.$emit("detailImhLoad"); */
     }
   }
 };

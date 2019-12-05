@@ -63,6 +63,7 @@ export default {
       tabOffsetTop: 0,
       isTabFixed: false,
       saveY: 0,
+      itemImgListener: null,
       projects: [],
       moneys: [],
       goods: {
@@ -89,10 +90,14 @@ export default {
   deactivated() {
     this.saveY = this.$refs.scroll.getScrollY();
     // console.log("deactivated", this.saveY);
+
+    //取消全局时间的监听
+    this.$bus.$off("imgLoad", this.itemImgListener);
   },
   created() {
     //1.请求多个数据
     this.getHomeMultidata();
+
     //2.请求商品
     this.getHomeGoods("superior");
     this.getHomeGoods("newest");
@@ -100,10 +105,14 @@ export default {
   },
   mounted() {
     //监听goodslistitem中图片 加载完成
-    const refresh = debounce(this.$refs.scroll.refresh, 50);
-    this.$bus.$on("imgLoad", () => {
-      refresh();
-    });
+    // const refresh = debounce(this.$refs.scroll.refresh, 50);
+    this.itemImgListener = () => {
+      // refresh();
+      debounce(this.$refs.scroll.refresh, 50);
+    };
+    this.$bus.$on("imgLoad", this.itemImgListener);
+
+    this.tabClick(0);
   },
   methods: {
     /**事件监听 */
@@ -120,8 +129,10 @@ export default {
           this.currentType = "case";
           break;
       }
-      this.$refs.tabControl1.currentIndex = index;
-      this.$refs.tabControl2.currentIndex = index;
+      if (this.$refs.tabControl1.currentIndex !== undefined) {
+        this.$refs.tabControl1.currentIndex = index;
+        this.$refs.tabControl2.currentIndex = index;
+      }
     },
     backClick() {
       this.$refs.scroll.scrollTo(0, 0);

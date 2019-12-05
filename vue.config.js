@@ -6,7 +6,8 @@ function resolve(dir) {
 
 module.exports = {
   lintOnSave: false,
-  publicPath: process.env.NODE_ENV === 'production' ? './' : '/',
+  // publicPath: process.env.NODE_ENV === 'production' ? './' : '/',
+  publicPath: '/',
   // 以下为alias配置
   chainWebpack: (config) => {
     config.resolve.alias

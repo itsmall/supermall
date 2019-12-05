@@ -48,12 +48,14 @@ export default {
   flex: 1;
   display: flex;
 }
+
 .bar-item > div {
   flex: 1;
 }
 .bar-left .text {
   font-size: 13px;
 }
+
 .bar-left .icon {
   display: block;
   width: 22px;
