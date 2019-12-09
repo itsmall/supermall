@@ -1,6 +1,6 @@
 <template>
   <div class="goods-item" @click="itemClick">
-    <img @load="imgLoad" :src="showImage" />
+    <img @load="imgLoad" v-lazy="showImage" />
     <!-- v-lazy="showImage" :key="showImage"  -->
 
     <div class="goods-info">

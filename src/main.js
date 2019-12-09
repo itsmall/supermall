@@ -3,15 +3,19 @@ import App from './App.vue'
 import router from './router'
 import store from './store'
 import toast from "components/common/toast";
-
+import VueLazyload from 'vue-lazyload'
 import FastClick from 'fastclick'
+
 
 Vue.config.productionTip = false
 //添加消息总线
 Vue.prototype.$bus = new Vue()
 //安装toast插件
 Vue.use(toast)
-
+//安装懒加载
+Vue.use(VueLazyload, {
+  loading: require('./assets/img/common/placeholder.png')
+})
 //解决移动端300ms延迟
 FastClick.attach(document.body)
 

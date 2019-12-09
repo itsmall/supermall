@@ -50,7 +50,14 @@ export default {
     //结算
     calClick() {
       if (!this.isSelectAll) {
-        this.$toast.show("至少一个商品");
+        this.$toast.show("请选择商品");
+      } else {
+         return this.list.filter(item => {
+        //选中的
+        return item.checked;
+      }).remove;
+        this.$toast.show("结算成功");
+
       }
     },
     //全选
